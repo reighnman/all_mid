@@ -1,0 +1,24 @@
+"AddonInfo"
+{
+	maps			"dota_mid_5v5 dota_mid_8v8 dota_mid_10v10 dota_mid_12v12"
+	"IsPlayable"	"1"
+	"PenaltiesEnabled"	 "1"
+	"EnablePickRules"    "1"
+	"CheckAFKPlayers"	"1"
+	"dota_mid_5v5"
+	{
+					"MaxPlayers"                    "10"
+	}
+	"dota_mid_8v8"
+	{
+					"MaxPlayers"                    "16"
+	}
+	"dota_mid_10v10"
+	{
+					"MaxPlayers"                    "20"
+	}
+	"dota_mid_12v12"
+	{
+					"MaxPlayers"                    "24"
+	}
+}
