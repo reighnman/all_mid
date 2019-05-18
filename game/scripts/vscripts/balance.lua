@@ -55,3 +55,19 @@ function GrantBonusGold(team, amount)
         end
     end
 end
+
+function Balance:BuildingScale(amount)
+    scaleClassNames = { "npc_dota_tower", "npc_dota_barracks", "npc_dota_filler", "npc_dota_fort" }
+
+    for i,scaleClassName in pairs(scaleClassNames) do
+        print (scaleClassName, amount)
+        buildings = Entities:FindAllByClassname(scaleClassName)
+        for k,building in ipairs(buildings) do
+            curHealth = building:GetHealth()
+            newHealth = curHealth * amount
+            building:SetMaxHealth(newHealth)
+            building:SetBaseMaxHealth(newHealth)
+            building:SetHealth(newHealth)
+        end
+    end
+end

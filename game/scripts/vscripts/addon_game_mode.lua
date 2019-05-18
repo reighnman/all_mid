@@ -13,7 +13,6 @@ require( 'balance' )
 require( 'statcollection/init' )
 require( 'utility_functions' )
 require( 'dev')
-require( 'scale' )
 
 LinkLuaModifier("modifier_core_courier", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_silencer_new_int_steal", LUA_MODIFIER_MOTION_NONE)
@@ -28,11 +27,30 @@ function Activate()
 end
 
 function CMegaDotaGameMode:InitGameMode()
-	print( "12v12 Mode Loaded!" )
+	print( "ALL MID+ Loaded!" )
 	print( GetMapName() )
 	-- Adjust team limits
-	GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 12 )
-	GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, 12 )
+	if (GetMapName() == "dota_mid_3v3") then
+		scaleValue = 0.6
+		teamSize = 3
+	elseif (GetMapName() == "dota_mid_5v5") then
+		scaleValue = 1.0
+		teamSize = 5
+	elseif (GetMapName() == "dota_mid_8v8") then
+		scaleValue = 1.6
+		teamSize = 8
+	elseif (GetMapName() == "dota_mid_10v10") then
+		scaleValue = 2.0
+		teamSize = 10
+	elseif (GetMapName() == "dota_mid_12v12") then
+		scaleValue = 2.4
+		teamSize = 12
+	else
+		scaleValue = 1.0
+		teamSize = 5
+	end
+	GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, teamSize )
+	GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, teamSize )
 	GameRules:SetStrategyTime( 0.0 )
 	GameRules:SetShowcaseTime( 0.0 )
 
@@ -155,7 +173,7 @@ end
 function CMegaDotaGameMode:OnEntityKilled( event )
     local killedUnit = EntIndexToHScript( event.entindex_killed )
     local killedTeam = killedUnit:GetTeam()
-    --print("fired")
+	--print("fired")
     if killedUnit:IsRealHero() and not killedUnit:IsReincarnating() then
 	    local dotaTime = GameRules:GetDOTATime(false, false)
 	    local timeToStartReduction = 0 -- 20 minutes
@@ -197,7 +215,7 @@ function CMegaDotaGameMode:OnEntityKilled( event )
 	    end
 
 		killedUnit:SetTimeUntilRespawn(timeLeft)
-    end
+	end
 end
 
 function CMegaDotaGameMode:OnNPCSpawned( event )
@@ -387,6 +405,8 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
             end
         end
 	elseif newState == DOTA_GAMERULES_STATE_PRE_GAME then
+		Balance:BuildingScale(scaleValue)
+
 		local courier_spawn = {}
 		courier_spawn[2] = Entities:FindByClassname(nil, "info_courier_spawn_radiant")
 		courier_spawn[3] = Entities:FindByClassname(nil, "info_courier_spawn_dire")
