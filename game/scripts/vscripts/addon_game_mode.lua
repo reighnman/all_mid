@@ -13,6 +13,7 @@ require( 'balance' )
 require( 'statcollection/init' )
 require( 'utility_functions' )
 require( 'dev')
+require( 'scale' )
 
 LinkLuaModifier("modifier_core_courier", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_silencer_new_int_steal", LUA_MODIFIER_MOTION_NONE)
@@ -395,6 +396,7 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 			self.couriers[team]:AddNewModifier(self.couriers[team], nil, "modifier_core_courier", {})
 		end
 
+		
 --		Timers:CreateTimer(30, function()
 --			for i=0,PlayerResource:GetPlayerCount() do
 --				local hero = PlayerResource:GetSelectedHeroEntity(i)
