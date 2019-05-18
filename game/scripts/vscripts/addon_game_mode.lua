@@ -1,5 +1,5 @@
 --Defaults
-scaleValue = 1.0
+buildingScaleValue = 1.0
 teamSize = 5
 GOLD_SCALE_FACTOR_INITIAL = 1
 GOLD_SCALE_FACTOR_FINAL = 2.0
@@ -33,27 +33,27 @@ function CMegaDotaGameMode:InitGameMode()
 	print( GetMapName() )
 	-- Adjust team limits
 	if (GetMapName() == "dota_mid_3v3") then
-		scaleValue = 0.6
+		buildingScaleValue = 0.6
 		teamSize = 3
 		XP_SCALE_FACTOR_INITIAL = 0.6
 		XP_SCALE_FACTOR_FINAL = 0.6
 	elseif (GetMapName() == "dota_mid_5v5") then
-		scaleValue = 1.0
+		buildingScaleValue = 1.0
 		teamSize = 5
 		XP_SCALE_FACTOR_INITIAL = 1.0
 		XP_SCALE_FACTOR_FINAL = 1.0
 	elseif (GetMapName() == "dota_mid_8v8") then
-		scaleValue = 1.6
+		buildingScaleValue = 1.6
 		teamSize = 8
 		XP_SCALE_FACTOR_INITIAL = 1.6
 		XP_SCALE_FACTOR_FINAL = 1.6
 	elseif (GetMapName() == "dota_mid_10v10") then
-		scaleValue = 2.0
+		buildingScaleValue = 2.0
 		teamSize = 10
 		XP_SCALE_FACTOR_INITIAL = 2.0
 		XP_SCALE_FACTOR_FINAL = 2.0
 	elseif (GetMapName() == "dota_mid_12v12") then
-		scaleValue = 2.4
+		buildingScaleValue = 2.4
 		teamSize = 12
 		XP_SCALE_FACTOR_INITIAL = 2.4
 		XP_SCALE_FACTOR_FINAL = 2.4
@@ -324,8 +324,8 @@ function CMegaDotaGameMode:OnThink()
 		local xpFracTime = math.min( math.max( curTime / XP_SCALE_FACTOR_FADEIN_SECONDS, 0 ), 1 )
 		self.m_CurrentGoldScaleFactor = GOLD_SCALE_FACTOR_INITIAL + (goldFracTime * ( GOLD_SCALE_FACTOR_FINAL - GOLD_SCALE_FACTOR_INITIAL ) )
 		self.m_CurrentXpScaleFactor = XP_SCALE_FACTOR_INITIAL + (xpFracTime * ( XP_SCALE_FACTOR_FINAL - XP_SCALE_FACTOR_INITIAL ) )
-		print( "Gold scale = " .. self.m_CurrentGoldScaleFactor )
-		print( "XP scale = " .. self.m_CurrentXpScaleFactor )
+		--print( "Gold scale = " .. self.m_CurrentGoldScaleFactor )
+		--print( "XP scale = " .. self.m_CurrentXpScaleFactor )
 	end
 	return 5
 end
@@ -414,7 +414,7 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
             end
         end
 	elseif newState == DOTA_GAMERULES_STATE_PRE_GAME then
-		Balance:BuildingScale(scaleValue)
+		Balance:BuildingScale(buildingScaleValue)
 
 		local courier_spawn = {}
 		courier_spawn[2] = Entities:FindByClassname(nil, "info_courier_spawn_radiant")

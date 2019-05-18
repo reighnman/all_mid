@@ -57,6 +57,7 @@ function GrantBonusGold(team, amount)
 end
 
 function Balance:BuildingScale(amount)
+    print ("Scaling building health:")
     scaleClassNames = { "npc_dota_tower", "npc_dota_barracks", "npc_dota_filler", "npc_dota_fort" }
 
     for i,scaleClassName in pairs(scaleClassNames) do
