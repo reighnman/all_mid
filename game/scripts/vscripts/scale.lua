@@ -17,7 +17,7 @@ Timers:CreateTimer({
     useGameTime = false,
     endTime = 18,
     callback = function()
-        scaleClassNames = { "npc_dota_tower", "npc_dota_building", "npc_dota_filler", "npc_dota_fort" }  --rax (npc_dota_building) not found via this method
+        scaleClassNames = { "npc_dota_tower", "npc_dota_barracks", "npc_dota_filler", "npc_dota_fort" }
     
         for i,scaleClassName in pairs(scaleClassNames) do
             print (scaleClassName, scaleValue)
